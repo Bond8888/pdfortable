@@ -40,8 +40,8 @@ import java.util.stream.Collectors;
 public class PdforTable {
 
     public static void main(String[] args) {
-        String pdfPath = "/Users/yanghui/Downloads/trans.pdf";
-        String excelPath = "/Users/yanghui/Downloads/export.xls";
+        String pdfPath = "/Users/trans.pdf";
+        String excelPath = "/Users/export.xls";
 
         PdforTable pdforTable = new PdforTable();
 
