@@ -17,6 +17,7 @@ import pdfortable.logic.LogicCell;
 import pdfortable.logic.LogicPage;
 import pdfortable.logic.LogicRow;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -40,8 +41,8 @@ import java.util.stream.Collectors;
 public class PdforTable {
 
     public static void main(String[] args) {
-        String pdfPath = "/Users/trans.pdf";
-        String excelPath = "/Users/export.xls";
+        String pdfPath = "/Users//trans.pdf";
+        String excelPath = "/Users//export.xls";
 
         PdforTable pdforTable = new PdforTable();
 
@@ -67,8 +68,8 @@ public class PdforTable {
     private static final int DPI_IMAGE = 300;
     // PDF DPI
     private static final int DPI_PDF = 72;
-    //二值化阈值
-    private static final int threshold = 128;
+    //二值化阈值，表格线段颜色较浅时可根据实际情况调高阈值，0-255
+    private static final int threshold = 200;
     // 水平线段，垂直线段检测连续像素数
     private static final int horizontalThreshold = 200;
     private static final int verticalThreshold = 100;
@@ -170,6 +171,7 @@ public class PdforTable {
             //图片二值化
             BufferedImage binaryImage = imgBinarized(mergeImg, threshold);
 
+            ImageIO.write(binaryImage,"png",new File("/Users/yanghui/Downloads/export.png"));
             LogicPage logicPage = new LogicPage();
             logicPage.setPageNo(0);
             //识别行与列
@@ -325,6 +327,8 @@ public class PdforTable {
         WritableRaster originalRaster = originalImage.getRaster();
         WritableRaster grayRaster = grayImage.getRaster();
         WritableRaster binaryRaster = binaryImage.getRaster();
+        // 线段描黑
+
         // 灰度图像
         for (int y = 0; y < originalImage.getHeight(); y++) {
             for (int x = 0; x < originalImage.getWidth(); x++) {
